@@ -1,11 +1,11 @@
-# This is a sample Python script.
+import random
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from aiogram.utils.markdown import text, bold, italic, code, pre
 from aiogram.types import ParseMode, InputMediaPhoto, InputMediaVideo, ChatActions
 
-TOKEN = '5165500327:AAHpyjzHY9_-Ys3DihLU3MuFKu2DBU-0-QA'
+TOKEN = ''
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -15,9 +15,12 @@ dp = Dispatcher(bot)
 
 MARS = 'AgACAgIAAxkBAAMhYe0vz0eFpO29t2Pv7-M9cpCVmnoAAq-3MRt7_mhLqR8sQsyTYIMBAAMCAANzAAMjBA'
 USSR = [
-    'AgACAgIAAxkBAAMvYe0xwHHt56r2ZimifYhp3E59ugMAAr23MRt7_mhLsyGwynPXVq0BAAMCAANzAAMjBA',
-    'AgACAgIAAxkBAAMsYe0xlKuhhDPu7cEmL4ZMNaf5oW8AAru3MRt7_mhLjvrdLiU5QLgBAAMCAANzAAMjBA',
-    'AgADAgADNKkxG3hu6EoNC-AgACAgIAAxkBAAMqYe0xaNNOz5HMMKdZ1AHa-x1SKIsAAri3MRt7_mhLLnNmtUk2XaIBAAMCAANzAAMjBA',
+    'AgACAgIAAxkBAANtYe9ARk6yBY5G5qGt5z1vNUw_WzgAAm25MRuQiXhLruC82m5smcgBAAMCAANzAAMjBA',
+    'AgACAgIAAxkBAANrYe9ADXgsGAZFQPbxsqEZEzkc3JkAAmy5MRuQiXhLEuVQWemq9eYBAAMCAANzAAMjBA',
+    'AgACAgIAAxkBAANpYe8__p-L-xx9eb4Dy6aAfHpzgv8AAmu5MRuQiXhLF8U5BkNoth0BAAMCAANzAAMjBA',
+    'AgACAgIAAxkBAANHYe5p2o1Y8PU-chO-tbPMMXFDegsAAqS7MRvcunFLZyWWJf8byRoBAAMCAANzAAMjBA',
+    'AgACAgIAAxkBAAMhYe0vz0eFpO29t2Pv7-M9cpCVmnoAAq-3MRt7_mhLqR8sQsyTYIMBAAMCAANzAAMjBA'
+
 ]
 VOICE = 'AwACAgIAAxkBAAMZYe0tXSLpk-T6zcKkiP8QiisfpbMAAqkTAAJL2mhLPr7VsswlHxAjBA'
 VIDEO = 'BAADAgADXAEAAnhu6ErDHE-xNjIzMgI'
@@ -39,15 +42,15 @@ async def process_voice_command(message: types.Message):
 
 @dp.message_handler(commands=['photo'])
 async def process_photo_command(message: types.Message):
-    caption = 'Советская колония на марсе.'
-    await bot.send_photo(message.from_user.id, MARS, caption=caption, reply_to_message_id=message.message_id)
+    caption = 'None'
+    await bot.send_photo(message.from_user.id, USSR[random.randint(0, len(USSR)-1)], caption=caption, reply_to_message_id=message.message_id)
 
 @dp.message_handler(commands=['group'])
 async def process_group_command(message: types.Message):
     media = []
     for i in USSR:
         media.append(InputMediaPhoto(i))
-    print(media)
+
     await bot.send_media_group(message.from_user.id, media)
 
 @dp.message_handler(content_types=['photo'])
